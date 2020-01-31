@@ -67,7 +67,7 @@ function makeOutboundCall(context, event) {
 }
 
 exports.handler = async function(context, event, callback) {
-  console.log("makeCall: makeCall request parameters:");
+	console.log("makeCall: makeCall request parameters:");
 	console.log("makeCall: to:", event.To);
 	console.log("makeCall: from:", event.From);
 	console.log("makeCall: workerContactUri:", event.workerContactUri);
@@ -76,7 +76,7 @@ exports.handler = async function(context, event, callback) {
 	console.log("makeCall: workflowSid", event.workflowSid);
 	console.log("makeCall: syncServiceSid", event.syncServiceSid);
 
-  const response = new Twilio.Response();
+	const response = new Twilio.Response();
 
 	response.appendHeader('Access-Control-Allow-Origin', '*');
 	response.appendHeader('Access-Control-Allow-Methods', 'OPTIONS POST');

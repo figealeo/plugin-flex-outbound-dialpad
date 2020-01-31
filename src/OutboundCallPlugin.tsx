@@ -12,10 +12,8 @@ import { registerActionExtensions } from "./eventListeners/actionsFramework";
 
 
 const PLUGIN_NAME = 'OutboundCallPlugin';
-export const FUNCTIONS_HOSTNAME = 'b93afcea.ngrok.io';
-export const WORKFLOW_SID = 'WW217db65b857ca3c84b6326d2dc4d6f12';
-export const TWILIO_SYNC_SERVICE_SID = "IS066c87ed33c3e174cdef01fcacc4513c";
-export const DEFAULT_FROM_NUMBER = "+17275132601"; // twilio account or verified number
+export const FUNCTIONS_HOSTNAME = 'call-9269-dev.twil.io';
+export const DEFAULT_FROM_NUMBER = "+12135148669"; // twilio account or verified number
 export const SYNC_CLIENT = new SyncClient(Manager.getInstance().user.token);
 
 function tokenUpdateHandler() {

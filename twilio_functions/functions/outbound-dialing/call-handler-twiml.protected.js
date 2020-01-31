@@ -3,7 +3,7 @@ exports.handler = async function (context, event, callback) {
 	console.log("callhandler for: ", event.CallSid);
 	console.log("worker:", event.workerContactUri);
 	console.log("to:", event.To);
-	console.log("workflowSid:", event.workflowSid);
+	console.log("workflowSid:", context.TWILIO_WORKFLOW_SID);
 
 	var taskAttributes = {
 		targetWorker: event.workerContactUri,
@@ -16,7 +16,7 @@ exports.handler = async function (context, event, callback) {
 	let twiml = new Twilio.twiml.VoiceResponse();
 
 	var enqueue = twiml.enqueue({
-		workflowSid: `${event.workflowSid}`
+		workflowSid: `${context.TWILIO_WORKFLOW_SID}`
 	});
 
 	enqueue.task(JSON.stringify(taskAttributes));

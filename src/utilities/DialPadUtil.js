@@ -2,7 +2,7 @@ import { Manager } from "@twilio/flex-ui";
 import {
 	FUNCTIONS_HOSTNAME,
 	DEFAULT_FROM_NUMBER,
-	SYNC_CLIENT, WORKFLOW_SID, TWILIO_SYNC_SERVICE_SID
+	SYNC_CLIENT
 } from "../OutboundCallPlugin"
 
 
@@ -21,7 +21,6 @@ class CallControlsClass {
 
 		const makeCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/make-call`
 		const headers = {
-			'Access-Control-Allow-Origin': '*',
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
 		const body = (
@@ -31,8 +30,6 @@ class CallControlsClass {
 			+ `&workerContactUri=${encodeURIComponent(workerContactUri)}`
 			+ `&functionsDomain=${encodeURIComponent(FUNCTIONS_HOSTNAME)}`
 			+ `&workerSid=${encodeURIComponent(workerSid)}`
-			+ `&workflowSid=${encodeURIComponent(WORKFLOW_SID)}`
-			+ `&syncServiceSid=${encodeURIComponent(TWILIO_SYNC_SERVICE_SID)}`
 		)
 
 		console.log("OUTBOUND DIALPAD: Making remote request to dial: ", to);

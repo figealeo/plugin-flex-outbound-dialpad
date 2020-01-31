@@ -8,7 +8,7 @@
 
 const updateSyncDoc = (context, event) => {
   const client = context.getTwilioClient();
-  const syncService = client.sync.services(context.syncServiceSid );
+  const syncService = client.sync.services(context.TWILIO_SYNC_SERVICE_SID);
 
   return new Promise(function (resolve, reject) {
     syncService.documents(event.workerSyncDoc)

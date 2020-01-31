@@ -22,6 +22,7 @@
     "craco-config-flex-plugin": "^3.3.7",
     "flex-plugin": "^3.0.0",
     "flex-plugin-scripts": "^3.3.7",
+    "keytar": "^5.1.0",
     "react": "16.5.2",
     "react-click-n-hold": "^1.0.7",
     "react-dom": "16.5.2",
