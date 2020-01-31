@@ -2,8 +2,8 @@ import { Manager } from "@twilio/flex-ui";
 import {
 	FUNCTIONS_HOSTNAME,
 	DEFAULT_FROM_NUMBER,
-	SYNC_CLIENT
-} from "../OutboundDialingWithConferencePlugin"
+	SYNC_CLIENT, WORKFLOW_SID, TWILIO_SYNC_SERVICE_SID
+} from "../OutboundCallPlugin"
 
 
 
@@ -19,8 +19,9 @@ class CallControlsClass {
 
 		const from = workerPhoneNumber ? workerPhoneNumber : DEFAULT_FROM_NUMBER;
 
-		const makeCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/makeCall`
+		const makeCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/make-call`
 		const headers = {
+			'Access-Control-Allow-Origin': '*',
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
 		const body = (
@@ -30,6 +31,8 @@ class CallControlsClass {
 			+ `&workerContactUri=${encodeURIComponent(workerContactUri)}`
 			+ `&functionsDomain=${encodeURIComponent(FUNCTIONS_HOSTNAME)}`
 			+ `&workerSid=${encodeURIComponent(workerSid)}`
+			+ `&workflowSid=${encodeURIComponent(WORKFLOW_SID)}`
+			+ `&syncServiceSid=${encodeURIComponent(TWILIO_SYNC_SERVICE_SID)}`
 		)
 
 		console.log("OUTBOUND DIALPAD: Making remote request to dial: ", to);
@@ -58,7 +61,7 @@ class CallControlsClass {
 		const manager = Manager.getInstance();
 		const token = manager.user.token;
 
-		const endCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/endCall`
+		const endCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/end-call`
 		const headers = {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
@@ -171,11 +174,14 @@ class DialpadSyncDocClass {
 	}
 
 	getDialpadSyncDoc() {
+		console.log("Launching sync DialpadDoc", Manager.getInstance().configuration.serviceBaseUrl)
 		const syncDocName = this.syncDocName;
 		return new Promise(function (resolve) {
 			SYNC_CLIENT
 				.document(syncDocName)
 				.then(doc => {
+					console.log("Read or created  sync DialpadDoc", syncDocName)
+					console.log(doc);
 					resolve(doc)
 				})
 		})
@@ -198,7 +204,7 @@ class DialpadSyncDocClass {
 		const manager = Manager.getInstance();
 		const token = manager.user.token;
 
-		const endCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/forceUpdateSyncDoc`
+		const endCallURL = `https://${FUNCTIONS_HOSTNAME}/outbound-dialing/force-update-sync-doc`
 		const headers = {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}

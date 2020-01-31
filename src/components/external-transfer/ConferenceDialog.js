@@ -8,8 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import ConferenceService from '../../utilities/ConferenceService';
-
-import { DEFAULT_FROM_NUMBER } from "../../OutboundDialingWithConferencePlugin"
+import {DEFAULT_FROM_NUMBER} from "../../OutboundCallPlugin";
 
 class ConferenceDialog extends React.Component {
   state = {

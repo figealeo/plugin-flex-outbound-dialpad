@@ -4,7 +4,7 @@ import ConferenceService from '../../utilities/ConferenceService';
 class ConferenceMonitor extends React.Component {
   state = {
     liveParticipantCount: 0
-  }
+  };
 
   componentDidUpdate() {
     const { task } = this.props;
@@ -30,12 +30,12 @@ class ConferenceMonitor extends React.Component {
   handleMoreThanTwoParticipants = (conferenceSid, participants) => {
     console.log('More than two conference participants. Setting endConferenceOnExit to false for all participants.');
     this.setEndConferenceOnExit(conferenceSid, participants, false);
-  }
+  };
 
   handleOnlyTwoParticipants = (conferenceSid, participants) => {
     console.log('Conference participants dropped to two. Setting endConferenceOnExit to true for all participants.');
     this.setEndConferenceOnExit(conferenceSid, participants, true);
-  }
+  };
 
   setEndConferenceOnExit = async (conferenceSid, participants, endConferenceOnExit) => {
     const promises = [];
@@ -53,7 +53,7 @@ class ConferenceMonitor extends React.Component {
     } catch (error) {
       console.error(`Error setting endConferenceOnExit to ${endConferenceOnExit} for all participants\r\n`, error);
     }
-  }
+  };
 
   render() {
     // This is a Renderless Component, only used for monitoring and taking action on conferences

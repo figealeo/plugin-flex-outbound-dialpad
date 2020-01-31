@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import { Manager, withTheme } from '@twilio/flex-ui';
-import { FUNCTIONS_HOSTNAME } from "../../OutboundDialingWithConferencePlugin";
+import {FUNCTIONS_HOSTNAME} from "../../OutboundCallPlugin";
 
 const Name = styled('div')`
   font-size: 14px;
