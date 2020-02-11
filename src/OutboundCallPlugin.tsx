@@ -9,6 +9,7 @@ import { loadExternalTransferInterface } from "./components/external-transfer";
 
 import { registerReservationCreatedExtensions } from "./eventListeners/workerClient/reservationCreated";
 import { registerActionExtensions } from "./eventListeners/actionsFramework";
+import { registerNotifications } from "./notifications/CustomNotifications";
 
 
 const PLUGIN_NAME = 'OutboundCallPlugin';
@@ -57,6 +58,7 @@ export default class OutboundCallPlugin extends FlexPlugin {
     // Add custom extensions
     loadDialPadInterface.bind(this)(flex, manager);
     loadExternalTransferInterface.bind(this)(flex, manager);
+    registerNotifications();
     registerReservationCreatedExtensions(manager);
     registerActionExtensions();
   }
