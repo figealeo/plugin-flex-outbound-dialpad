@@ -1,5 +1,5 @@
 {
-  "name": "plugin-bark",
+  "name": "plugin-outbound-call",
   "version": "0.0.0",
   "private": true,
   "scripts": {
