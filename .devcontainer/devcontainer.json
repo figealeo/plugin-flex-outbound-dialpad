@@ -1,0 +1,7 @@
+{
+	"name": "Basic Node container",
+	"dockerFile": "./Dockerfile",
+	"context": "..",
+	"extensions": [
+	]
+}
