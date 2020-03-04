@@ -23,18 +23,22 @@ async function identify_from_task_attributes(
     identification_url.searchParams.append(key, identifying_attributes[key])
   );
 
+  const signature = getTwilioSignature(
+    context.AUTH_TOKEN,
+    identification_url.href,
+    {}
+  );
+  console.log("Signature " + identification_url.href + " :" + signature);
+
   const request = await nodeFetch(identification_url, {
     method: "GET",
     headers: {
-      "X-Twilio-Signature": getTwilioSignature(
-        context.AUTH_TOKEN,
-        encodeURI(identification_url.href),
-        {}
-      )
+      "X-Twilio-Signature": signature
     }
   });
 
   const parsed_result = await request.json();
+
   return {
     pet_parent_id: parsed_result.petParent.id,
     partner_backend_host: backend_host
@@ -51,7 +55,6 @@ async function identify_from_task_attributes(
  */
 exports.handler = async function(context, event, callback) {
   const response = new Twilio.Response();
-
   const backend_host_list = JSON.parse(context.BACKEND_HOSTS);
   const identifying_attributes = JSON.parse(event.identifying_attributes);
 
@@ -62,14 +65,16 @@ exports.handler = async function(context, event, callback) {
   oneSuccess(identificationPromises)
     .then(identified => {
       response.setStatusCode(200);
+      response.appendHeader('Content-Type', 'application/json');
       response.setBody(identified);
     })
     .catch(e => {
-      console.log(e);
+      console.log("No identification succeeded", e);
       response.setStatusCode(404);
-      response.setBody("Could not identify the Task");
     })
-    .finally(_ => callback(null, response));
+    .finally(_ => {
+      callback(null, response)
+    });
 };
 
 /**

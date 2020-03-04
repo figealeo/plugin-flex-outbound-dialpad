@@ -23,8 +23,11 @@ async function identifyByAttributes(identifying_attributes, context) {
     }
   });
   try {
-	return await fetchResponse.json();
+    const fetched_response = await fetchResponse.json();
+    console.log("Identification response", fetched_response);
+    return fetched_response;
   } catch(_) {
+    console.log("Error trying to identify the callee");
 	  return Promise.resolve({});
   }
 }
@@ -56,5 +59,6 @@ exports.handler = async function(context, event, callback) {
   });
 
   enqueue.task(JSON.stringify(taskAttributes));
+  console.log("Sending Twiml back");
   callback(null, twiml);
 };
